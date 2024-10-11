@@ -1,0 +1,150 @@
+//Array operations ( Sort and Search)
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ArrayOperations {
+
+    // Linear Search
+    public static int linearSearch(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) {
+                return i; // Return index if key is found
+            }
+        }
+        return -1; // Return -1 if key is not found
+    }
+
+    // Binary Search (requires sorted array)
+    public static int binarySearch(int[] arr, int key) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == key) return mid; // Return index if key is found
+            if (arr[mid] < key) low = mid + 1; // Key is in the right half
+            else high = mid - 1; // Key is in the left half
+        }
+        return -1; // Return -1 if key is not found
+    }
+
+    // Bubble Sort
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap arr[j] and arr[j + 1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break; // If no swaps happened, array is sorted
+        }
+    }
+
+    // Selection Sort
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j; // Find the index of the minimum element
+                }
+            }
+            // Swap the found minimum element with the first element
+            int temp = arr[minIndex];
+            arr[minIndex] = arr[i];
+            arr[i] = temp;
+        }
+    }
+
+    // Utility function to print the array
+    public static void printArray(int[] arr) {
+        for (int j : arr) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input array size
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+
+        // Input array elements
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        // Display menu
+        System.out.println("Choose an operation:");
+        System.out.println("1. Linear Search");
+        System.out.println("2. Binary Search (Sorted Array)");
+        System.out.println("3. Bubble Sort");
+        System.out.println("4. Selection Sort");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                // Linear Search
+                System.out.println("Enter the element to search (Linear Search):");
+                int key1 = scanner.nextInt();
+                int result1 = linearSearch(arr, key1);
+                if (result1 == -1) {
+                    System.out.println("Element not found.");
+                } else {
+                    System.out.println("Element found at index: " + result1);
+                }
+                break;
+
+            case 2:
+                // Binary Search after sorting the array
+                System.out.println("Sorting the array using Bubble Sort for Binary Search...");
+                bubbleSort(arr);
+                System.out.println("Sorted array:");
+                printArray(arr);
+
+                System.out.println("Enter the element to search (Binary Search):");
+                int key2 = scanner.nextInt();
+                int result2 = binarySearch(arr, key2);
+                if (result2 == -1) {
+                    System.out.println("Element not found.");
+                } else {
+                    System.out.println("Element found at index: " + result2);
+                }
+                break;
+
+            case 3:
+                // Bubble Sort
+                System.out.println("Sorting the array using Bubble Sort...");
+                bubbleSort(arr);
+                System.out.println("Sorted array:");
+                printArray(arr);
+                break;
+
+            case 4:
+                // Selection Sort
+                System.out.println("Sorting the array using Selection Sort...");
+                selectionSort(arr);
+                System.out.println("Sorted array:");
+                printArray(arr);
+                break;
+
+            default:
+                System.out.println("Invalid choice!");
+        }
+
+        scanner.close();
+    }
+}

@@ -1,0 +1,86 @@
+// Stack with Linklist
+
+class StackLinkedList {
+
+    // Node class representing each element in the stack
+    private class Node {
+        int data;
+        Node next;
+    }
+
+    private Node top; // top of the stack
+
+    // Constructor
+    StackLinkedList() {
+        top = null; // Initially, the stack is empty
+    }
+
+    // Push operation to add element to the stack
+    public void push(int data) {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = top; // New node points to the current top
+        top = newNode; // Now the new node is the top
+        System.out.println("Pushed " + data + " to the stack.");
+    }
+
+    // Pop operation to remove and return the top element
+    public int pop() {
+        if (top == null) {
+            System.out.println("Stack is empty.");
+            return -1;
+        }
+        int value = top.data;
+        top = top.next; // Move top to the next node
+        System.out.println("Popped " + value + " from the stack.");
+        return value;
+    }
+
+    // Peek operation to return the top element without removing it
+    public int peek() {
+        if (top == null) {
+            System.out.println("Stack is empty.");
+            return -1;
+        }
+        return top.data;
+    }
+
+    // Check if the stack is empty
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    // Display the elements of the stack
+    public void display() {
+        if (top == null) {
+            System.out.println("Stack is empty.");
+            return;
+        }
+        Node temp = top;
+        System.out.println("Stack elements:");
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        StackLinkedList stack = new StackLinkedList();
+
+        // Stack operations
+        stack.push(4);
+        stack.push(8);
+        stack.push(12);
+        stack.push(16);
+        stack.push(20);
+
+        stack.display();
+
+        System.out.println("Peek element: " + stack.peek());
+
+        stack.pop();
+        stack.display();
+
+        System.out.println("Stack is empty: " + stack.isEmpty());
+    }
+}

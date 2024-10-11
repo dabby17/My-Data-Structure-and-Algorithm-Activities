@@ -1,0 +1,63 @@
+//Binary Search
+
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class BinarySearch {
+
+    // Method to perform binary search
+    public static int binarySearch(int[] arr, int key) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // Find the mid index
+
+            // Check if the key is present at mid
+            if (arr[mid] == key) {
+                return mid; // Return the index if found
+            }
+            // If the key is greater, ignore the left half
+            if (arr[mid] < key) {
+                low = mid + 1;
+            }
+            // If the key is smaller, ignore the right half
+            else {
+                high = mid - 1;
+            }
+        }
+        return -1; // Return -1 if the key is not found
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input array size
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+
+        // Input array elements
+        System.out.println("Enter the elements of the array (sorted):");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        // Input the key to search
+        System.out.println("Enter the element to search:");
+        int key = scanner.nextInt();
+
+        // Perform binary search
+        int result = binarySearch(arr, key);
+        
+        // Output the result
+        if (result == -1) {
+            System.out.println("Element not found.");
+        } else {
+            System.out.println("Element found at index: " + result);
+        }
+
+        scanner.close();
+    }
+}
